@@ -1,0 +1,3 @@
+include ':app'
+include ':running-backend'
+project(':running-backend').projectDir = new File(settingsDir, '../running-backend')
