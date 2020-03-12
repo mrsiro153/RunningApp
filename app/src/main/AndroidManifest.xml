@@ -4,7 +4,6 @@
     package="vn.intelin.android.app.running">
 
     <application
-        tools:replace="icon, label"
         android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

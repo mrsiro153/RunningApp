@@ -1,31 +1,52 @@
 package vn.intelin.android.app.running;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
+import android.widget.Toast;
 
 import vn.intelin.android.running.api.Api;
 import vn.intelin.android.running.api.IResult;
 import vn.intelin.android.running.api.Server;
+import vn.intelin.android.running.model.db.User;
+import vn.intelin.android.running.util.JsonConverter;
 import vn.intelin.android.running.util.LogCat;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     private final LogCat log = new LogCat(this.getClass());
     private Server server = Server.getInstance();
-
-    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //
-        button = (Button) findViewById(R.id.btn_test);
-        button.setOnClickListener(view -> server.handle(Api.GET_USERS, "nothing", btnTestResult));
+        Button btnGetAllUser = findViewById(R.id.btn_test);
+        btnGetAllUser.setOnClickListener(view -> server.handle(Api.GET_USERS, "nothing", btnGetAllUserHandler));
+        //
+        Button btnAddUser = findViewById(R.id.btn_add_user);
+        btnAddUser.setOnClickListener(view -> {
+            server.handle(Api.USER_LOGIN, JsonConverter.toJson(new User().setName("abc").setAge(444).setId("fffdfd")), btnAddUserHandler);
+        });
+        //
+        Button btnGetUserCondition = findViewById(R.id.btn_get_user_condition);
+        btnGetUserCondition.setOnClickListener(view -> {
+            server.handle(Api.GET_USER_CONDITION,"",btnGetUserConditionHandler);
+        });
     }
 
-    private IResult btnTestResult = response -> {
-        log.e("SERVER RESPONSE: " + response.getData());
-        button.setText("AHsHSHAHSAHS");
+    private IResult btnGetAllUserHandler = response -> {
+        log.i("SERVER RESPONSE: " + JsonConverter.toJson(response));
+        Toast.makeText(this, "get all user success", Toast.LENGTH_SHORT).show();
+    };
+
+    private IResult btnAddUserHandler = response -> {
+        log.i("SERVER RESPONSE: " + JsonConverter.toJson(response));
+        Toast.makeText(this, "add user success", Toast.LENGTH_SHORT).show();
+    };
+
+    private IResult btnGetUserConditionHandler = response -> {
+        log.i("SERVER RESPONSE: " + JsonConverter.toJson(response));
+        Toast.makeText(this, "get User condition success", Toast.LENGTH_SHORT).show();
     };
 }
