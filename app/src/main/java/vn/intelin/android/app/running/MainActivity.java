@@ -1,6 +1,7 @@
 package vn.intelin.android.app.running;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -9,6 +10,7 @@ import vn.intelin.android.running.api.Api;
 import vn.intelin.android.running.api.IResult;
 import vn.intelin.android.running.api.Server;
 import vn.intelin.android.running.model.db.User;
+import vn.intelin.android.running.ui.SiroTestActivity;
 import vn.intelin.android.running.util.JsonConverter;
 import vn.intelin.android.running.util.LogCat;
 
@@ -33,6 +35,13 @@ public class MainActivity extends Activity {
         btnGetUserCondition.setOnClickListener(view -> {
             server.handle(Api.GET_USER_CONDITION,"",btnGetUserConditionHandler);
         });
+        //
+        Button btnLoginFb = findViewById(R.id.btn_login_facebook);
+        btnLoginFb.setOnClickListener(v->{
+            Intent i = new Intent(this, SiroTestActivity.class);
+            startActivity(i);
+        });
+        //
     }
 
     private IResult btnGetAllUserHandler = response -> {

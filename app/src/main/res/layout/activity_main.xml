@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/btn_test"
-        android:text="add new user"/>
+        android:text="login"/>
     <Button
         android:id="@+id/btn_get_user_condition"
         android:layout_width="match_parent"
@@ -34,5 +34,11 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_add_user"
         android:background="@color/colorPrimary"
         android:text="get user with name"/>
+    <Button
+        android:id="@+id/btn_login_facebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/btn_get_user_condition"
+        android:text="login with facebook"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
