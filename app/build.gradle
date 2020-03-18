@@ -37,4 +37,13 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    //circle image
+    implementation "de.hdodenhof:circleimageview:2.1.0"
+    //recycler view
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
 }

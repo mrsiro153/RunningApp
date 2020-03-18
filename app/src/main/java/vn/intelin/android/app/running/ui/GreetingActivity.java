@@ -90,6 +90,9 @@ public class GreetingActivity extends AppCompatActivity {
 
     private void setUpListener() {
         //todo setup listener
+        findViewById(R.id.btn_login_fb).setOnClickListener(v->{
+            startLoginFb();
+        });
     }
 
     private void doFirst() {
@@ -98,7 +101,7 @@ public class GreetingActivity extends AppCompatActivity {
             log.d("api : " + Api.USER_CHECK_LOGIN + " with response value: " + JsonConverter.toJson(result));
             LoadingDialog.remove();
             if (result.getCode().equals(CodeResponse.NOT_LOGIN.code)) {
-                startLoginFb();
+                //startLoginFb();
                 return;
             }
             if (result.getCode().equals(CodeResponse.OK.code)) {
