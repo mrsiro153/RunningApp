@@ -1,6 +1,7 @@
 package vn.intelin.android.app.running.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -30,26 +31,6 @@ public class GreetingActivity extends AppCompatActivity {
         setUpView();
         setUpListener();
         doFirst();
-        //
-//        Button btnGetAllUser = findViewById(R.id.btn_test);
-//        btnGetAllUser.setOnClickListener(view -> server.handle(Api.GET_USERS, "nothing", btnGetAllUserHandler));
-//        //
-//        Button btnAddUser = findViewById(R.id.btn_add_user);
-//        btnAddUser.setOnClickListener(view -> {
-//            server.handle(Api.USER_LOGIN, JsonConverter.toJson(new User().setName("abc").setAge(444).setId("fffdfd")), btnAddUserHandler);
-//        });
-//        //
-//        Button btnGetUserCondition = findViewById(R.id.btn_get_user_condition);
-//        btnGetUserCondition.setOnClickListener(view -> {
-//            server.handle(Api.GET_USER_CONDITION,"",btnGetUserConditionHandler);
-//        });
-//        //
-//        Button btnLoginFb = findViewById(R.id.btn_login_facebook);
-//        btnLoginFb.setOnClickListener(v->{
-//            Intent i = new Intent(this, SiroTestActivity.class);
-//            startActivity(i);
-//        });
-        //
     }
 
     @Override
