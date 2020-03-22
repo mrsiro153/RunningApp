@@ -1,6 +1,7 @@
 package vn.intelin.android.app.running.widget;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ public class EventDetailDialog extends DialogFragment {
     private final LogCat log = new LogCat(this.getClass());
     private Server server = Server.getInstance();
     private Event event;
+    private DismissListener dismissListener;
 
     @NonNull
     @Override
@@ -53,6 +55,13 @@ public class EventDetailDialog extends DialogFragment {
         EventDetailDialog dialog = new EventDetailDialog();
         dialog.setEvent(event);
         dialog.show(manager, "fds");
+    }
+
+    public static void show(FragmentManager manager, Event event, DismissListener dismissListener) {
+        EventDetailDialog dialog = new EventDetailDialog();
+        dialog.setEvent(event);
+        dialog.show(manager, "fds");
+        dialog.dismissListener = dismissListener;
     }
 
 
@@ -82,18 +91,29 @@ public class EventDetailDialog extends DialogFragment {
                 log.e("server response api: " + Api.ENROLL_EVENT + " with data: " + JsonConverter.toJson(rs));
                 if (rs.getCode().equals(CodeResponse.OK.code)) {
                     Toast toast = Toast.makeText(this.getActivity(), "register event " + event.getId() + " success", Toast.LENGTH_SHORT);
-                    toast.getView().setBackgroundColor(getResources().getColor(R.color.green));
-                    ((TextView)toast.getView().findViewById(android.R.id.message)).setTextColor(getResources().getColor(R.color.white));
+                    ToastUtil.successToast(toast).show();
                     toast.show();
                 } else {
                     Toast toast = Toast.makeText(this.getActivity(), "register event " + event.getId() + " failed", Toast.LENGTH_SHORT);
-                    toast.getView().setBackgroundColor(getResources().getColor(R.color.red));
-                    ((TextView)toast.getView().findViewById(android.R.id.message)).setTextColor(getResources().getColor(R.color.white));
+                    ToastUtil.errorToast(toast).show();
                     toast.show();
                     dismiss();
                 }
                 this.dismiss();
             });
         });
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (dismissListener != null) {
+            dismissListener.onDismiss();
+        }
+    }
+
+    @FunctionalInterface
+    public interface DismissListener {
+        void onDismiss();
     }
 }

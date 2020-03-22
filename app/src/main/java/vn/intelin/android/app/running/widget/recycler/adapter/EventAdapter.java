@@ -20,9 +20,14 @@ import vn.intelin.android.running.model.db.Event;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
     private List<Event> events;
+    private OnEventRegisteredListener onEventRegisteredListener;
 
     public EventAdapter(List<Event> dataSet) {
         this.events = dataSet;
+    }
+    public EventAdapter(List<Event> dataSet,OnEventRegisteredListener onEventRegisteredListener) {
+        this.events = dataSet;
+        this.onEventRegisteredListener = onEventRegisteredListener;
     }
 
     private Resources resources;
@@ -80,7 +85,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     private void setUpListener(EventViewHolder holder, Event event) {
         holder.btnEventDetail.setOnClickListener(view -> {
-            EventDetailDialog.show(((AppCompatActivity) context).getSupportFragmentManager(),event);
+            EventDetailDialog.show(((AppCompatActivity) context).getSupportFragmentManager(),event,()->{
+                if(onEventRegisteredListener!=null){
+                    onEventRegisteredListener.onRegistered(event);
+                }
+            });
         });
+    }
+
+    public interface OnEventRegisteredListener{
+        void onRegistered(Event event);
     }
 }

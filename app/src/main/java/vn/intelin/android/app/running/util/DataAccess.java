@@ -6,6 +6,7 @@ import vn.intelin.android.running.util.JsonConverter;
 
 public class DataAccess {
     public final static String USER = "userInfo";
+    public final static String EVENT = "event";
     private static HashMap<String, Object> data = new HashMap<>();
 
     public static void push(String key, Object value) {
