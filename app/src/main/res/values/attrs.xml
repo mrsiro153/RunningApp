@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="InfoEditText">
         <attr name="filedName" format="string" localization="suggested"/>
+        <attr name="fieldEditable" format="boolean"/>
     </declare-styleable>
 
 </resources>

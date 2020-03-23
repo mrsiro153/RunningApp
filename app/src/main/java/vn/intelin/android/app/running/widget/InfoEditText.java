@@ -13,6 +13,7 @@ import vn.intelin.android.app.running.R;
 
 public class InfoEditText extends ConstraintLayout {
     private String field;
+    private Boolean editable;
     private EditText edtValue;
 
     public InfoEditText(Context context) {
@@ -23,12 +24,14 @@ public class InfoEditText extends ConstraintLayout {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.InfoEditText, 0, 0);
         this.field = a.getString(R.styleable.InfoEditText_filedName);
+        this.editable = a.getBoolean(R.styleable.InfoEditText_fieldEditable,false);
         a.recycle();
         initializeView(context);
         TextView t = findViewById(R.id.txt_item_name);
         t.setText(field);
         //
         edtValue = findViewById(R.id.edt_item_value);
+        edtValue.setFocusable(editable);
     }
 
     public InfoEditText(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {

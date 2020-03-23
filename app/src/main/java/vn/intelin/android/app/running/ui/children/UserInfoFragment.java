@@ -35,9 +35,10 @@ public class UserInfoFragment extends Fragment {
         ((TextView) Objects.requireNonNull(this.getView()).findViewById(R.id.txt_customer_name)).setText(userInf.getName());
         ((InfoEditText) Objects.requireNonNull(this.getView()).findViewById(R.id.item_user_info_name)).setEditTextValue(userInf.getName());
         ((InfoEditText) Objects.requireNonNull(this.getView()).findViewById(R.id.item_user_info_email)).setEditTextValue(userInf.getEmail());
-        InfoEditText infoAge = ((InfoEditText) Objects.requireNonNull(this.getView()).findViewById(R.id.item_user_info_age));
-        if (userInf.getAge() != null)
-            infoAge.setEditTextValue(String.valueOf(userInf.getAge()));
-        infoAge.focusableEditText(true);
+        ((InfoEditText) Objects.requireNonNull(this.getView()).findViewById(R.id.item_user_info_dob)).setEditTextValue(""+userInf.getDob());
+        ((InfoEditText) Objects.requireNonNull(this.getView()).findViewById(R.id.item_user_info_gender)).setEditTextValue(""+userInf.getGender());
+        ((InfoEditText) Objects.requireNonNull(this.getView()).findViewById(R.id.item_user_info_height)).setEditTextValue(""+userInf.getHeight());
+        ((InfoEditText) Objects.requireNonNull(this.getView()).findViewById(R.id.item_user_info_weight)).setEditTextValue(""+userInf.getWeight());
+        ((InfoEditText) Objects.requireNonNull(this.getView()).findViewById(R.id.item_user_info_phone)).setEditTextValue(""+userInf.getPhone());
     }
 }
