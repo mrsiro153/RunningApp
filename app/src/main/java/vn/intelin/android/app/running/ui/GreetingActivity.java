@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import vn.intelin.android.app.running.MapsActivity;
 import vn.intelin.android.app.running.R;
 import vn.intelin.android.app.running.util.DataAccess;
 import vn.intelin.android.app.running.widget.LoadingDialog;
@@ -100,7 +102,7 @@ public class GreetingActivity extends AppCompatActivity {
             LoadingDialog.remove();
             if (result.getCode().equals(CodeResponse.OK.code)) {
                 DataAccess.push(DataAccess.USER, result.getData());
-                Intent i = new Intent(this, MainActivity.class);
+                Intent i = new Intent(this, MapsActivity.class);
                 startActivity(i);
                 finish();
             }

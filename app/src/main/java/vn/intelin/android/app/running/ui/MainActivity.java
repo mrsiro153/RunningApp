@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import vn.intelin.android.app.running.R;
 import vn.intelin.android.app.running.ui.children.EventFragment;
+import vn.intelin.android.app.running.ui.children.MapFragment;
 import vn.intelin.android.app.running.ui.children.UserInfoFragment;
 import vn.intelin.android.app.running.widget.tab.MainTabAdapter;
 import vn.intelin.android.running.api.Server;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         MainTabAdapter tabAdapter = new MainTabAdapter(getSupportFragmentManager(), this);
         tabAdapter.addFragment(new UserInfoFragment(), "user");
         tabAdapter.addFragment(new EventFragment(), "event");
+        tabAdapter.addFragment(new MapFragment(), "map");
         viewPager.setAdapter(tabAdapter);
         tabs.setupWithViewPager(viewPager);
         //
