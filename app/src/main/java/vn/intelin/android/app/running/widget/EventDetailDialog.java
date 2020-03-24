@@ -88,7 +88,6 @@ public class EventDetailDialog extends DialogFragment {
                     .setEventId(event.getId());
             server.handle(Api.ENROLL_EVENT, JsonConverter.toJson(request), rs -> {
                 LoadingDialog.remove();
-                log.e("server response api: " + Api.ENROLL_EVENT + " with data: " + JsonConverter.toJson(rs));
                 if (rs.getCode().equals(CodeResponse.OK.code)) {
                     Toast toast = Toast.makeText(this.getActivity(), "register event " + event.getId() + " success", Toast.LENGTH_SHORT);
                     ToastUtil.successToast(toast).show();

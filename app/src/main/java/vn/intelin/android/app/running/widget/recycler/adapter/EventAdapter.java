@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import vn.intelin.android.app.running.R;
 import vn.intelin.android.app.running.widget.EventDetailDialog;
 import vn.intelin.android.running.model.db.Event;
+import vn.intelin.android.running.model.db.EventType;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
     private List<Event> events;
@@ -35,6 +36,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     public void addAll(List<Event> events) {
         if (this.events == null) events = new ArrayList<>();
+        this.events.addAll(events);
+        notifyDataSetChanged();
+    }
+
+    public void addNew(List<Event> events) {
+        if (this.events == null) events = new ArrayList<>();
+        this.events.clear();
         this.events.addAll(events);
         notifyDataSetChanged();
     }

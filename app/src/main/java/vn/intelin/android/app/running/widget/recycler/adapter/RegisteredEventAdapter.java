@@ -75,15 +75,16 @@ public class RegisteredEventAdapter extends RecyclerView.Adapter<RegisteredEvent
         } else {
             holder.registerDate.setText("-");
         }
-        holder.btnEventDetail.setBackgroundColor(resources.getColor(R.color.red));
-        holder.btnEventDetail.setText("CANCEL");
+        holder.btnEventDetail.setVisibility(View.GONE);
+//        holder.btnEventDetail.setBackgroundColor(resources.getColor(R.color.red));
+//        holder.btnEventDetail.setText("NOTHING");
         //
         if (position % 2 == 0) {
             holder.itemView.setBackgroundColor(resources.getColor(R.color.green_violet));
         } else {
             holder.itemView.setBackgroundColor(resources.getColor(R.color.blue));
         }
-        setUpListener(holder, eventUser,position);
+//        setUpListener(holder, eventUser,position);
     }
 
     @Override
@@ -106,22 +107,22 @@ public class RegisteredEventAdapter extends RecyclerView.Adapter<RegisteredEvent
         }
     }
 
-    private void setUpListener(RegisteredEventAdapter.RegisteredEventViewHolder holder, EventUser eventUser,int position) {
-        holder.btnEventDetail.setOnClickListener(view -> {
-            LoadingDialog.showLoading(((FragmentActivity)context).getSupportFragmentManager());
-            UserCancelEventRequest request = new UserCancelEventRequest()
-                    .setUserId(eventUser.getUserId())
-                    .setEventId(eventUser.getEventId());
-            server.handle(Api.USER_CANCEL_EVENT,JsonConverter.toJson(request),response -> {
-                LoadingDialog.remove();
-                if(response.getCode().equals(CodeResponse.OK.code)) {
-                    eventUsers.remove(position);
-                    notifyDataSetChanged();
-                }else {
-                    Toast toast = Toast.makeText(context, "CANCEL event " + eventUser.getEventId() + " failed", Toast.LENGTH_SHORT);
-                    ToastUtil.errorToast(toast).show();
-                }
-            });
-        });
-    }
+//    private void setUpListener(RegisteredEventAdapter.RegisteredEventViewHolder holder, EventUser eventUser,int position) {
+//        holder.btnEventDetail.setOnClickListener(view -> {
+//            LoadingDialog.showLoading(((FragmentActivity)context).getSupportFragmentManager());
+//            UserCancelEventRequest request = new UserCancelEventRequest()
+//                    .setUserId(eventUser.getUserId())
+//                    .setEventId(eventUser.getEventId());
+//            server.handle(Api.USER_CANCEL_EVENT,JsonConverter.toJson(request),response -> {
+//                LoadingDialog.remove();
+//                if(response.getCode().equals(CodeResponse.OK.code)) {
+//                    eventUsers.remove(position);
+//                    notifyDataSetChanged();
+//                }else {
+//                    Toast toast = Toast.makeText(context, "CANCEL event " + eventUser.getEventId() + " failed", Toast.LENGTH_SHORT);
+//                    ToastUtil.errorToast(toast).show();
+//                }
+//            });
+//        });
+//    }
 }
