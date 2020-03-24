@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.FirstUsingActivity"
+    android:background="@drawable/background_main">
+    <TextView
+        android:id="@+id/txt_first_login_welcome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Welcome intelIn running system, please give us more information"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        />
+    <vn.intelin.android.app.running.widget.InfoEditText
+        android:id="@+id/idt_first_login_full_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:filedName="FullName"
+        app:fieldEditable="true"
+        app:edtHint="Your name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_first_login_welcome"/>
+    <vn.intelin.android.app.running.widget.InfoEditText
+        android:id="@+id/idt_first_login_phone_number"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:filedName="phone number"
+        app:fieldEditable="true"
+        app:edtHint="0211xxxxxx"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/idt_first_login_full_name"/>
+    <vn.intelin.android.app.running.widget.InfoEditText
+        android:id="@+id/idt_first_login_dob"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:filedName="date of birth"
+        app:fieldEditable="true"
+        app:edtHint="dd/mm/yyyy"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/idt_first_login_phone_number"/>
+    <vn.intelin.android.app.running.widget.InfoEditText
+        android:id="@+id/idt_first_login_gender"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:filedName="Gender"
+        app:edtHint="male/female"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/idt_first_login_dob"/>
+    <vn.intelin.android.app.running.widget.InfoEditText
+        android:id="@+id/idt_first_login_height"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:filedName="height"
+        app:edtHint="000 (cm)"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/idt_first_login_gender"/>
+    <vn.intelin.android.app.running.widget.InfoEditText
+        android:id="@+id/idt_first_login_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:filedName="weight"
+        app:edtHint="000 (kg)"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/idt_first_login_height"/>
+    <Button
+        android:id="@+id/btn_first_login_im_done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="I'm done"
+        android:background="@color/blue"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

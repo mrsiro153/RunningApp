@@ -44,21 +44,6 @@ public class GreetingActivity extends AppCompatActivity {
         }
     }
 
-    private IResult btnGetAllUserHandler = response -> {
-        log.i("SERVER RESPONSE: " + JsonConverter.toJson(response));
-        Toast.makeText(this, "get all user success", Toast.LENGTH_SHORT).show();
-    };
-
-    private IResult btnAddUserHandler = response -> {
-        log.i("SERVER RESPONSE: " + JsonConverter.toJson(response));
-        Toast.makeText(this, "add user success", Toast.LENGTH_SHORT).show();
-    };
-
-    private IResult btnGetUserConditionHandler = response -> {
-        log.i("SERVER RESPONSE: " + JsonConverter.toJson(response));
-        Toast.makeText(this, "get User condition success", Toast.LENGTH_SHORT).show();
-    };
-
     private void setUpView() {
         //todo setupView
         if (getActionBar() != null) {
@@ -71,7 +56,7 @@ public class GreetingActivity extends AppCompatActivity {
 
     private void setUpListener() {
         //todo setup listener
-        findViewById(R.id.btn_login_fb).setOnClickListener(v->{
+        findViewById(R.id.btn_login_fb).setOnClickListener(v -> {
             startLoginFb();
         });
     }
@@ -96,13 +81,25 @@ public class GreetingActivity extends AppCompatActivity {
     private void handleAutoLogin() {
         LoadingDialog.showLoading(this.getSupportFragmentManager());
         server.handle(Api.USER_LOGIN, "", result -> {
-            log.d("server response of api: " + Api.USER_LOGIN + " with response: " + JsonConverter.toJson(result));
             LoadingDialog.remove();
-            if (result.getCode().equals(CodeResponse.OK.code)) {
-                DataAccess.push(DataAccess.USER, result.getData());
-                Intent i = new Intent(this, MainActivity.class);
-                startActivity(i);
-                finish();
+            CodeResponse code = CodeResponse.find(result.getCode());
+            switch (code) {
+                case OK: {
+                    DataAccess.push(DataAccess.USER, result.getData());
+                    Intent i = new Intent(this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                    break;
+                }
+                case USER_NOT_FOUND_INFO: {
+                    Intent i = new Intent(this, FirstUsingActivity.class);
+                    startActivity(i);
+                    finish();
+                    break;
+                }
+                default:{
+                    //nothing to do!
+                }
             }
         });
     }

@@ -23,8 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:focusable="false"
         android:padding="5dp"
+        android:textColorHint="@color/white_30"
         app:layout_constraintTop_toBottomOf="@+id/txt_item_name"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
