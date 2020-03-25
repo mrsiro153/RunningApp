@@ -20,14 +20,6 @@ public class MainTabAdapter extends FragmentStatePagerAdapter {
     private final List<String> mFragmentTitleList = new ArrayList<>();
     private Context context;
 
-    public MainTabAdapter(@NonNull FragmentManager fm, int behavior) {
-        super(fm, behavior);
-    }
-
-    public MainTabAdapter(@NonNull FragmentManager fm) {
-        super(fm);
-    }
-
     public MainTabAdapter(@NonNull FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
@@ -61,5 +53,9 @@ public class MainTabAdapter extends FragmentStatePagerAdapter {
         tabTextView.setText(mFragmentTitleList.get(position));
         tabTextView.setTextColor(context.getResources().getColor(R.color.yellow));
         return view;
+    }
+
+    public Fragment getFragmentAt(int position){
+        return mFragmentList.get(position);
     }
 }

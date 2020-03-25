@@ -84,7 +84,7 @@ public class EventDetailDialog extends DialogFragment {
         btnEnroll.setOnClickListener(v -> {
             LoadingDialog.showLoading(this.getFragmentManager());
             UserEnrollEventRequest request = new UserEnrollEventRequest()
-                    .setUserId(DataAccess.getAs(DataAccess.USER, User.class).getId())
+                    .setUserId(DataAccess.getJsonAs(DataAccess.DataKey.USER, User.class).getId())
                     .setEventId(event.getId());
             server.handle(Api.ENROLL_EVENT, JsonConverter.toJson(request), rs -> {
                 LoadingDialog.remove();

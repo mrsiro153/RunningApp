@@ -16,9 +16,12 @@ import vn.intelin.android.app.running.util.DataAccess;
 import vn.intelin.android.app.running.widget.InfoEditText;
 import vn.intelin.android.running.model.db.User;
 import vn.intelin.android.running.util.JsonConverter;
+import vn.intelin.android.running.util.LogCat;
 
 public class UserInfoFragment extends Fragment {
+    private final LogCat log = new LogCat(this.getClass());
     private User userInf;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,17 +31,20 @@ public class UserInfoFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        userInf = JsonConverter.fromJson(String.valueOf(DataAccess.get(DataAccess.USER)), User.class);
+        userInf = JsonConverter.fromJson(String.valueOf(DataAccess.getAs(DataAccess.DataKey.USER,String.class)), User.class);
         setUpView();
     }
     private void setUpView(){
-        ((TextView) Objects.requireNonNull(this.getView()).findViewById(R.id.txt_customer_name)).setText(userInf.getName());
-        ((InfoEditText) Objects.requireNonNull(this.getView()).findViewById(R.id.item_user_info_name)).setEditTextValue(userInf.getName());
-        ((InfoEditText) Objects.requireNonNull(this.getView()).findViewById(R.id.item_user_info_email)).setEditTextValue(userInf.getEmail());
-        ((InfoEditText) Objects.requireNonNull(this.getView()).findViewById(R.id.item_user_info_dob)).setEditTextValue(""+userInf.getDob());
+        ((TextView) this.getView().findViewById(R.id.txt_customer_name)).setText(userInf.getName());
+        ((InfoEditText) this.getView().findViewById(R.id.item_user_info_name)).setEditTextValue(userInf.getName());
+        ((InfoEditText) this.getView().findViewById(R.id.item_user_info_email)).setEditTextValue(userInf.getEmail());
+        ((InfoEditText) this.getView().findViewById(R.id.item_user_info_dob)).setEditTextValue(""+userInf.getDob());
         ((InfoEditText) Objects.requireNonNull(this.getView()).findViewById(R.id.item_user_info_gender)).setEditTextValue(""+userInf.getGender());
         ((InfoEditText) Objects.requireNonNull(this.getView()).findViewById(R.id.item_user_info_height)).setEditTextValue(""+userInf.getHeight());
         ((InfoEditText) Objects.requireNonNull(this.getView()).findViewById(R.id.item_user_info_weight)).setEditTextValue(""+userInf.getWeight());
         ((InfoEditText) Objects.requireNonNull(this.getView()).findViewById(R.id.item_user_info_phone)).setEditTextValue(""+userInf.getPhone());
+    }
+    public void refresh(){
+        setUpView();
     }
 }

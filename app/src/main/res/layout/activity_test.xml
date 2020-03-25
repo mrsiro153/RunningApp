@@ -27,5 +27,12 @@
         android:text="get event by tag"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_test_increase_participants"/>
+    <Button
+        android:id="@+id/btn_insert_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_test_get_event_by_tag"
+        android:text="insert new location"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

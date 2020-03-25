@@ -73,7 +73,7 @@ public class FirstUsingActivity extends AppCompatActivity {
                     CodeResponse code = CodeResponse.find(response.getCode());
                     switch (code) {
                         case OK:
-                            DataAccess.push(DataAccess.USER, response.getData());
+                            DataAccess.push(DataAccess.DataKey.USER, response.getData());
                             Intent i = new Intent(this, MainActivity.class);
                             startActivity(i);
                             finish();

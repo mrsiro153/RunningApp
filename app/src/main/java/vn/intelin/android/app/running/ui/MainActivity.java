@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import vn.intelin.android.app.running.R;
 import vn.intelin.android.app.running.ui.children.EventFragment;
+import vn.intelin.android.app.running.ui.children.EventTagFragment;
+import vn.intelin.android.app.running.ui.children.TestFragment;
 import vn.intelin.android.app.running.ui.children.UserInfoFragment;
 import vn.intelin.android.app.running.widget.tab.MainTabAdapter;
 import vn.intelin.android.running.api.Server;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         MainTabAdapter tabAdapter = new MainTabAdapter(getSupportFragmentManager(), this);
         tabAdapter.addFragment(new UserInfoFragment(), "user");
         tabAdapter.addFragment(new EventFragment(), "event");
+        tabAdapter.addFragment(new EventTagFragment(), "tag-event");
         viewPager.setAdapter(tabAdapter);
         tabs.setupWithViewPager(viewPager);
         //
@@ -75,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
                         tab.setCustomView(null);
                         tab.setCustomView(tabAdapter.getTabView(i));
                     }
+                }
+                if(tabAdapter.getFragmentAt(position).getClass().equals(UserInfoFragment.class)){
+                    ((UserInfoFragment)tabAdapter.getFragmentAt(position)).refresh();
                 }
             }
 

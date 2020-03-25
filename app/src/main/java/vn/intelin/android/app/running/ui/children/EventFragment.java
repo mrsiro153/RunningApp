@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import vn.intelin.android.app.running.R;
 import vn.intelin.android.app.running.util.DataAccess;
 import vn.intelin.android.app.running.widget.recycler.adapter.EventAdapter;
@@ -53,24 +54,14 @@ public class EventFragment extends Fragment {
         setUpLstEvent();
         setUpLstRegisteredEvent();
         setUpLstEventType();
+        setUpSwipeRefresh();
     }
 
     private void setUpListener() {
     }
 
     private void doFirst() {
-        if (DataAccess.get(DataAccess.EVENT) != null) {
-            List<Event> lst = JsonConverter.fromJsonToList(JsonConverter.toJsonElement(String.valueOf(DataAccess.get(DataAccess.EVENT))), Event[].class);
-            RecyclerView recyclerView = ((RecyclerView) getView().findViewById(R.id.lst_event_event_list));
-            ((EventAdapter) recyclerView.getAdapter()).addAll(lst);
-        } else {
-            server.handle(Api.GET_EVENT, "", rs -> {
-                DataAccess.push(DataAccess.EVENT, rs.getData());
-                List<Event> lst = JsonConverter.fromJsonToList(JsonConverter.toJsonElement(String.valueOf(rs.getData())), Event[].class);
-                RecyclerView recyclerView = ((RecyclerView) getView().findViewById(R.id.lst_event_event_list));
-                ((EventAdapter) recyclerView.getAdapter()).addAll(lst);
-            });
-        }
+        getListEvent();
         getListRegisteredEvent();
         getListEventType();
     }
@@ -91,6 +82,7 @@ public class EventFragment extends Fragment {
         recyclerView.setAdapter(new RegisteredEventAdapter(new ArrayList<>()));
     }
 
+    @SuppressWarnings("all")
     private void setUpLstEventType() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
@@ -98,7 +90,7 @@ public class EventFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(new EventTypeAdapter(new ArrayList<>()));
         ((EventTypeAdapter) recyclerView.getAdapter()).setEventTypeClickListener(eventType -> {
-            List<Event> lst = JsonConverter.fromJsonToList(JsonConverter.toJsonElement(String.valueOf(DataAccess.get(DataAccess.EVENT))), Event[].class);
+            List<Event> lst = DataAccess.getAs(DataAccess.DataKey.EVENT,List.class);
             List<Event> newLst = new ArrayList<>();
             for (Event e : lst) {
                 if (e.getEventType().getEventTypeId().equals(eventType.getId()))
@@ -109,10 +101,27 @@ public class EventFragment extends Fragment {
             } else
                 ((EventAdapter) ((RecyclerView) getView().findViewById(R.id.lst_event_event_list)).getAdapter()).addNew(newLst);
         });
+        //
+    }
+
+    @SuppressWarnings("all")
+    private void getListEvent(){
+        if (DataAccess.get(DataAccess.DataKey.EVENT) != null) {
+            List<Event> lst = DataAccess.getAs(DataAccess.DataKey.EVENT,List.class);
+            RecyclerView recyclerView = ((RecyclerView) getView().findViewById(R.id.lst_event_event_list));
+            ((EventAdapter) recyclerView.getAdapter()).addNew(lst);
+        } else {
+            server.handle(Api.GET_EVENT, "", rs -> {
+                List<Event> lst = JsonConverter.fromJsonToList(JsonConverter.toJsonElement(String.valueOf(rs.getData())), Event[].class);
+                DataAccess.push(DataAccess.DataKey.EVENT, lst);
+                RecyclerView recyclerView = ((RecyclerView) getView().findViewById(R.id.lst_event_event_list));
+                ((EventAdapter) recyclerView.getAdapter()).addNew(lst);
+            });
+        }
     }
 
     private void getListRegisteredEvent() {
-        server.handle(Api.GET_REGISTERED_EVENT, DataAccess.get(DataAccess.USER), response -> {
+        server.handle(Api.GET_REGISTERED_EVENT, DataAccess.getAs(DataAccess.DataKey.USER,String.class), response -> {
             RecyclerView recyclerView = ((RecyclerView) getView().findViewById(R.id.lst_event_event_registered_list));
             List<EventUser> lst = JsonConverter.fromJsonToList(JsonConverter.toJsonElement(String.valueOf(response.getData())), EventUser[].class);
             ((RegisteredEventAdapter) recyclerView.getAdapter()).addNew(lst);
@@ -126,6 +135,14 @@ public class EventFragment extends Fragment {
                 RecyclerView recyclerView = getView().findViewById(R.id.lst_event_type_event);
                 ((EventTypeAdapter) recyclerView.getAdapter()).addNew(lst);
             }
+        });
+    }
+
+    private void setUpSwipeRefresh(){
+        SwipeRefreshLayout refreshLayout = getView().findViewById(R.id.layout_swipe_event_fragment);
+        refreshLayout.setOnRefreshListener(()->{
+            doFirst();
+            refreshLayout.setRefreshing(false);
         });
     }
 }

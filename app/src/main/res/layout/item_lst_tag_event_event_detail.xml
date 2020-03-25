@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginEnd="3dp"
+    android:background="@color/white"
+    android:padding="2dp">
+    <ImageView
+        android:id="@+id/img_item_lst_tag_event_detail_avatar_event"
+        android:layout_width="150dp"
+        android:layout_height="170dp"
+        android:src="@drawable/logo_event_detail"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+    <TextView
+        android:id="@+id/txt_item_lst_tag_event_event_detail_event_name"
+        android:background="@color/yellow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="event name"
+        app:layout_constraintLeft_toRightOf="@+id/img_item_lst_tag_event_detail_avatar_event"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/txt_item_lst_tag_event_event_detail_time_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/txt_item_lst_tag_event_event_detail_event_name"
+        app:layout_constraintTop_toBottomOf="@+id/txt_item_lst_tag_event_event_detail_event_name"
+        android:text="time-location"/>
+
+    <TextView
+        android:id="@+id/txt_item_lst_tag_event_event_detail_fee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/txt_item_lst_tag_event_event_detail_event_name"
+        app:layout_constraintTop_toBottomOf="@+id/txt_item_lst_tag_event_event_detail_time_location"
+        android:text="200 USD"
+        android:textStyle="bold"/>
+    <ImageView
+        android:id="@+id/txt_item_lst_tag_event_event_detail_is_next"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/img_item_lst_tag_event_detail_avatar_event"
+        android:src="@drawable/ic_next"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

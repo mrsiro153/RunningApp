@@ -85,7 +85,7 @@ public class GreetingActivity extends AppCompatActivity {
             CodeResponse code = CodeResponse.find(result.getCode());
             switch (code) {
                 case OK: {
-                    DataAccess.push(DataAccess.USER, result.getData());
+                    DataAccess.push(DataAccess.DataKey.USER, result.getData());
                     Intent i = new Intent(this, MainActivity.class);
                     startActivity(i);
                     finish();
