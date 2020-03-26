@@ -22,8 +22,10 @@ public class InfoEditText extends ConstraintLayout {
         this.field = a.getString(R.styleable.InfoEditText_filedName);
         this.editable = a.getBoolean(R.styleable.InfoEditText_fieldEditable, true);
         String hint = a.getString(R.styleable.InfoEditText_edtHint);
+        int fieldNameColor = a.getColor(R.styleable.InfoEditText_fieldNameColor,getResources().getColor(R.color.primaryColor));
 
         TextView t = findViewById(R.id.txt_item_name);
+        t.setTextColor(fieldNameColor);
         t.setText(field);
         //
         edtValue = findViewById(R.id.edt_item_value);
@@ -38,5 +40,9 @@ public class InfoEditText extends ConstraintLayout {
 
     public String getEditTextValue() {
         return edtValue.getText().toString();
+    }
+
+    public void clear(){
+        edtValue.setText("");
     }
 }

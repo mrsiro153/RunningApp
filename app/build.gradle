@@ -51,4 +51,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
     //swipe layout
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+
+    //microsoft
+//    implementation 'com.jakewharton.threetenabp:threetenabp:1.1.0'
+//    implementation 'com.splitwise:tokenautocomplete:2.0.8'
+//    implementation 'com.microsoft.uifabric:OfficeUIFabric:0.3.8'
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import vn.intelin.android.running.api.Api;
 import vn.intelin.android.running.api.Server;
 import vn.intelin.android.running.model.request.EventByTagRequest;
+import vn.intelin.android.running.model.request.GetAllUserEventLocationRequest;
 import vn.intelin.android.running.model.request.UserUpdateLocationRequest;
 import vn.intelin.android.running.util.JsonConverter;
 import vn.intelin.android.running.util.LogCat;
@@ -45,5 +46,14 @@ public class TestActivity extends AppCompatActivity {
 
             });
         });
+        findViewById(R.id.btn_retrieve_location).setOnClickListener(v->{
+            GetAllUserEventLocationRequest request = new GetAllUserEventLocationRequest()
+                    .setUserId("cuc8AIWL0qNwfBA5NvHxBZcpuC02")
+                    .setEventId("E004");
+            server.handle(Api.USER_GET_FULL_LOCATON_EVENT,JsonConverter.toJson(request),response -> {
+
+            });
+        });
+
     }
 }

@@ -4,6 +4,7 @@
         <attr name="filedName" format="string" localization="suggested"/>
         <attr name="fieldEditable" format="boolean"/>
         <attr name="edtHint" format="string" localization="suggested"/>
+        <attr name="fieldNameColor" format="color" localization="suggested"/>
     </declare-styleable>
 
 </resources>

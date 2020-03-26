@@ -18,22 +18,26 @@
         android:id="@+id/idt_dialog_event_detail_event_name"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        app:filedName="eventName" />
+        app:filedName="eventName"
+        app:fieldEditable="false"/>
     <vn.intelin.android.app.running.widget.InfoEditText
         android:id="@+id/idt_dialog_event_detail_event_fee"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        app:filedName="fee" />
+        app:filedName="fee"
+        app:fieldEditable="false"/>
     <vn.intelin.android.app.running.widget.InfoEditText
         android:id="@+id/idt_dialog_event_detail_event_participants"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        app:filedName="participants" />
+        app:filedName="participants"
+        app:fieldEditable="false"/>
     <vn.intelin.android.app.running.widget.InfoEditText
         android:id="@+id/idt_dialog_event_detail_event_rule"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        app:filedName="rule" />
+        app:filedName="rule"
+        app:fieldEditable="false"/>
     <Button
         android:id="@+id/btn_dialog_event_detail_event_enroll"
         android:layout_width="wrap_content"

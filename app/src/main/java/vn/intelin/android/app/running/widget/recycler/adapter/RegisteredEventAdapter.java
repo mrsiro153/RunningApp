@@ -1,14 +1,13 @@
 package vn.intelin.android.app.running.widget.recycler.adapter;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,18 +15,11 @@ import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import vn.intelin.android.app.running.R;
-import vn.intelin.android.app.running.util.DataAccess;
-import vn.intelin.android.app.running.widget.LoadingDialog;
-import vn.intelin.android.app.running.widget.ToastUtil;
-import vn.intelin.android.running.api.Api;
-import vn.intelin.android.running.api.CodeResponse;
+import vn.intelin.android.app.running.ui.TrackingMapActivity;
 import vn.intelin.android.running.api.Server;
 import vn.intelin.android.running.model.db.EventUser;
-import vn.intelin.android.running.model.db.User;
-import vn.intelin.android.running.model.request.UserCancelEventRequest;
 import vn.intelin.android.running.util.JsonConverter;
 
 public class RegisteredEventAdapter extends RecyclerView.Adapter<RegisteredEventAdapter.RegisteredEventViewHolder> {
@@ -75,16 +67,15 @@ public class RegisteredEventAdapter extends RecyclerView.Adapter<RegisteredEvent
         } else {
             holder.registerDate.setText("-");
         }
-        holder.btnEventDetail.setVisibility(View.GONE);
-//        holder.btnEventDetail.setBackgroundColor(resources.getColor(R.color.red));
-//        holder.btnEventDetail.setText("NOTHING");
+        holder.btnEventDetail.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark));
+        holder.btnEventDetail.setText("Start");
         //
         if (position % 2 == 0) {
             holder.itemView.setBackgroundColor(resources.getColor(R.color.green_violet));
         } else {
             holder.itemView.setBackgroundColor(resources.getColor(R.color.blue));
         }
-//        setUpListener(holder, eventUser,position);
+        setUpListener(holder, eventUser,position);
     }
 
     @Override
@@ -107,22 +98,13 @@ public class RegisteredEventAdapter extends RecyclerView.Adapter<RegisteredEvent
         }
     }
 
-//    private void setUpListener(RegisteredEventAdapter.RegisteredEventViewHolder holder, EventUser eventUser,int position) {
-//        holder.btnEventDetail.setOnClickListener(view -> {
-//            LoadingDialog.showLoading(((FragmentActivity)context).getSupportFragmentManager());
-//            UserCancelEventRequest request = new UserCancelEventRequest()
-//                    .setUserId(eventUser.getUserId())
-//                    .setEventId(eventUser.getEventId());
-//            server.handle(Api.USER_CANCEL_EVENT,JsonConverter.toJson(request),response -> {
-//                LoadingDialog.remove();
-//                if(response.getCode().equals(CodeResponse.OK.code)) {
-//                    eventUsers.remove(position);
-//                    notifyDataSetChanged();
-//                }else {
-//                    Toast toast = Toast.makeText(context, "CANCEL event " + eventUser.getEventId() + " failed", Toast.LENGTH_SHORT);
-//                    ToastUtil.errorToast(toast).show();
-//                }
-//            });
-//        });
-//    }
+    private void setUpListener(RegisteredEventAdapter.RegisteredEventViewHolder holder, EventUser eventUser,int position) {
+        //todo go to start event activity
+        holder.btnEventDetail.setOnClickListener(v->{
+            Intent i = new Intent(this.context, TrackingMapActivity.class);
+            i.putExtra("eventUser", JsonConverter.toJson(eventUser));
+            this.context.startActivity(i);
+        });
+
+    }
 }
