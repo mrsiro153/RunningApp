@@ -1,10 +1,8 @@
 package vn.intelin.android.app.running.ui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,9 +11,9 @@ import vn.intelin.android.app.running.util.DataAccess;
 import vn.intelin.android.app.running.widget.LoadingDialog;
 import vn.intelin.android.running.api.Api;
 import vn.intelin.android.running.api.CodeResponse;
-import vn.intelin.android.running.api.IResult;
 import vn.intelin.android.running.api.Server;
-import vn.intelin.android.running.ui.SiroTestActivity;
+import vn.intelin.android.running.ui.FacebookLoginActivity;
+import vn.intelin.android.running.ui.GoogleLoginActivity;
 import vn.intelin.android.running.util.JsonConverter;
 import vn.intelin.android.running.util.LogCat;
 
@@ -23,6 +21,7 @@ public class GreetingActivity extends AppCompatActivity {
     private final LogCat log = new LogCat(this.getClass());
     private Server server = Server.getInstance();
     public static int FB_REQUEST = 1;
+    public static int GOOGLE_REQUEST =2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +41,12 @@ public class GreetingActivity extends AppCompatActivity {
                 handleAutoLogin();
             }
         }
+        if(requestCode == GOOGLE_REQUEST){
+            if(resultCode == Activity.RESULT_OK){
+                log.i("login with google success");
+                handleAutoLogin();
+            }
+        }
     }
 
     private void setUpView() {
@@ -58,6 +63,9 @@ public class GreetingActivity extends AppCompatActivity {
         //todo setup listener
         findViewById(R.id.btn_login_fb).setOnClickListener(v -> {
             startLoginFb();
+        });
+        findViewById(R.id.btn_login_google).setOnClickListener(v->{
+            startLoginGoogle();
         });
     }
 
@@ -105,7 +113,12 @@ public class GreetingActivity extends AppCompatActivity {
     }
 
     private void startLoginFb() {
-        Intent i = new Intent(this, SiroTestActivity.class);
+        Intent i = new Intent(this, FacebookLoginActivity.class);
         startActivityForResult(i, FB_REQUEST);
+    }
+
+    private void startLoginGoogle(){
+        Intent i = new Intent(this, GoogleLoginActivity.class);
+        startActivityForResult(i,GOOGLE_REQUEST);
     }
 }
