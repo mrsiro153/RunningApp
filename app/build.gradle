@@ -52,6 +52,10 @@ dependencies {
     //swipe layout
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 
+    implementation 'com.mlsdev.rximagepicker:library:2.0.2'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+
     //microsoft
 //    implementation 'com.jakewharton.threetenabp:threetenabp:1.1.0'
 //    implementation 'com.splitwise:tokenautocomplete:2.0.8'
