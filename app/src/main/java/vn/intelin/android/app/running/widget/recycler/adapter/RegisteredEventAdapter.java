@@ -18,7 +18,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import vn.intelin.android.app.running.R;
 import vn.intelin.android.app.running.ui.TrackingMapActivity;
+import vn.intelin.android.app.running.util.DataAccess;
 import vn.intelin.android.running.api.Server;
+import vn.intelin.android.running.constant.EventStatus;
+import vn.intelin.android.running.constant.EventUserStatus;
+import vn.intelin.android.running.model.db.Event;
 import vn.intelin.android.running.model.db.EventUser;
 import vn.intelin.android.running.util.JsonConverter;
 
@@ -67,15 +71,28 @@ public class RegisteredEventAdapter extends RecyclerView.Adapter<RegisteredEvent
         } else {
             holder.registerDate.setText("-");
         }
-        holder.btnEventDetail.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark));
-        holder.btnEventDetail.setText("Start");
         //
         if (position % 2 == 0) {
             holder.itemView.setBackgroundColor(resources.getColor(R.color.green_violet));
         } else {
             holder.itemView.setBackgroundColor(resources.getColor(R.color.blue));
         }
-        setUpListener(holder, eventUser,position);
+        List<Event> lst = DataAccess.getAs(DataAccess.DataKey.EVENT,List.class);
+
+        holder.btnEventDetail.setBackgroundColor(resources.getColor(R.color.gray));
+        holder.btnEventDetail.setText("Start");
+        for(Event e: lst){
+           if(e.getId().equals(eventUser.getEventId()) && e.getStatus().equals(EventStatus.STARTING.status)){
+               holder.btnEventDetail.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark));
+               setUpListener(holder, eventUser, position);
+           }
+        }
+
+//        if (eventUser.getRunningStatus() == null || eventUser.getRunningStatus().equals(EventUserStatus.RunningStatus.DONE.status)) {
+//            holder.btnEventDetail.setBackgroundColor(resources.getColor(R.color.gray));
+//        } else {
+//            setUpListener(holder, eventUser, position);
+//        }
     }
 
     @Override
@@ -98,9 +115,9 @@ public class RegisteredEventAdapter extends RecyclerView.Adapter<RegisteredEvent
         }
     }
 
-    private void setUpListener(RegisteredEventAdapter.RegisteredEventViewHolder holder, EventUser eventUser,int position) {
+    private void setUpListener(RegisteredEventAdapter.RegisteredEventViewHolder holder, EventUser eventUser, int position) {
         //todo go to start event activity
-        holder.btnEventDetail.setOnClickListener(v->{
+        holder.btnEventDetail.setOnClickListener(v -> {
             Intent i = new Intent(this.context, TrackingMapActivity.class);
             i.putExtra("eventUser", JsonConverter.toJson(eventUser));
             this.context.startActivity(i);
